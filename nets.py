@@ -151,7 +151,8 @@ class MNIST_Net(nn.Module):
 class CIFAR10_Net(nn.Module):
 	def __init__(self, dim = 28 * 28, pretrained=False, num_classes = 10):
 		super().__init__()
-		resnet18 = models.resnet18(pretrained=pretrained)
+		#resnet18 = models.resnet18(pretrained=pretrained)
+		resnet18 = torch.hub.load('pytorch/vision:v0.10.0', 'resnet18', pretrained=pretrained)
 		features_tmp = nn.Sequential(*list(resnet18.children())[:-1])
 		features_tmp[0] = nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1, bias=False)
 		self.features = nn.Sequential(*list(features_tmp))
